@@ -1,7 +1,9 @@
+import { AddressForm } from "../components/AddressForm";
+
 export const AddressCreate = () => {
   return (
     <div>
-      <h1>Address Create</h1>
+      <AddressForm />
     </div>
   );
 };
