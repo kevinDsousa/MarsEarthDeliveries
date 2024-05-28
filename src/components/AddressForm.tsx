@@ -1,95 +1,131 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormField,
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { Input } from "./ui/input";
 
-export const AddressForm: React.FC = () => {
-  const [endereco, setEndereco] = useState({
-    rua: "",
-    numero: "",
-    cidade: "",
-    estado: "",
-    pais: "",
-    cep: "",
-  });
+const formSchema = z.object({
+  rua: z.string().min(2).max(100),
+  numero: z.string().min(1).max(10),
+  cidade: z.string().min(2).max(50),
+  estado: z.string().min(2).max(50),
+  pais: z.string().min(2).max(50),
+  cep: z.string().min(8).max(8),
+});
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setEndereco({ ...endereco, [name]: value });
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // Aqui você pode enviar os dados do endereço para o backend ou fazer qualquer outra operação necessária
-    console.log("Endereço cadastrado:", endereco);
-    // Limpa o formulário após o envio
-    setEndereco({
+export const AddressForm = () => {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
       rua: "",
       numero: "",
       cidade: "",
       estado: "",
       pais: "",
       cep: "",
-    });
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log(data);
   };
 
   return (
-    <div>
-      <h2>Cadastro de Endereço</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Rua:
-          <input
-            type="text"
-            name="rua"
-            value={endereco.rua}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Número:
-          <input
-            type="text"
-            name="numero"
-            value={endereco.numero}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Cidade:
-          <input
-            type="text"
-            name="cidade"
-            value={endereco.cidade}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Estado:
-          <input
-            type="text"
-            name="estado"
-            value={endereco.estado}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          País:
-          <input
-            type="text"
-            name="pais"
-            value={endereco.pais}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          CEP:
-          <input
-            type="text"
-            name="cep"
-            value={endereco.cep}
-            onChange={handleChange}
-          />
-        </label>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="rua"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Rua</FormLabel>
+              <FormControl>
+                <Input placeholder="Nome da rua" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="numero"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Número</FormLabel>
+              <FormControl>
+                <Input placeholder="Número da residência" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="cidade"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cidade</FormLabel>
+              <FormControl>
+                <Input placeholder="Nome da cidade" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="estado"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Estado</FormLabel>
+              <FormControl>
+                <Input placeholder="Nome do estado" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="pais"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>País</FormLabel>
+              <FormControl>
+                <Input placeholder="Nome do país" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="cep"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>CEP</FormLabel>
+              <FormControl>
+                <Input placeholder="CEP" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <button type="submit">Cadastrar Endereço</button>
       </form>
-    </div>
+    </Form>
   );
 };

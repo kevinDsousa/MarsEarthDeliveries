@@ -2,8 +2,8 @@ import { AddressForm } from "../components/AddressForm";
 
 export const AddressCreate = () => {
   return (
-    <div>
+    <section className="bg-zinc-700">
       <AddressForm />
-    </div>
+    </section>
   );
 };
