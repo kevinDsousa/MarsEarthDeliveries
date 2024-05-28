@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AddressCreate } from "./pages/AddressCreate.tsx";
 import { NotFound } from "./pages/NotFound.tsx";
 import { AddressEdit } from "./pages/AddressEdit.tsx";
+import { Home } from "./pages/Home.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
       {
         path: "/new-address",
         element: <AddressCreate />,
