@@ -1,7 +1,9 @@
+import { EditForm } from "../components/EditForm";
+
 export const AddressEdit = () => {
   return (
-    <div>
-      <h1>Address Edit</h1>
-    </div>
+    <section className="bg-zinc-700 h-screen flex items-center justify-center">
+      <EditForm />
+    </section>
   );
 };

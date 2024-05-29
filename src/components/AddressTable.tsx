@@ -39,7 +39,7 @@ export const AddressTable = () => {
 
   return (
     <div className="p-4">
-      <h1 className="">Seus Endereços</h1>
+      <h1 className="text-slate-50">Seus Endereços</h1>
       {addresses.length > 0 ? (
         <Table className="bg-zinc-600 text-slate-50">
           <TableHeader>

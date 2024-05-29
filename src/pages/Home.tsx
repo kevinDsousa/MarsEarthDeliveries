@@ -1,6 +1,6 @@
 export const Home = () => {
   return (
-    <section className="bg-zinc-600 h-screen w-full">
+    <section className="bg-zinc-700 h-screen w-full">
       <div className="flex flex-col items-center justify-center h-full">
         <h1 className="text-white text-5xl font-bold drop-shadow-lg">
           Seja <span className="text-red-700">bem</span> vindo

@@ -34,3 +34,9 @@ export const removeAddressFromLocalStorage = (id: string) => {
 
   return updatedAddresses;
 };
+
+export const updateAddressToLocalStorage = (
+  data: any,
+  planet: string,
+  id: string
+) => {};

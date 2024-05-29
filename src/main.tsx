@@ -7,6 +7,7 @@ import { AddressCreate } from "./pages/AddressCreate.tsx";
 import { NotFound } from "./pages/NotFound.tsx";
 import { Home } from "./pages/Home.tsx";
 import { AddressView } from "./pages/AddressView.tsx";
+import { AddressEdit } from "./pages/AddressEdit.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
         element: <AddressCreate />,
       },
       {
-        path: "view-address",
+        path: "/view-address",
         element: <AddressView />,
+      },
+      {
+        path: "/edit-address/:id",
+        element: <AddressEdit />,
       },
     ],
   },
