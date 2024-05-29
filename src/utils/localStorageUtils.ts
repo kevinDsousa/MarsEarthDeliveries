@@ -19,13 +19,18 @@ export const removeAddressFromLocalStorage = (id: string) => {
     localStorage.getItem("addresses") || "[]"
   );
 
+  let updatedAddresses: any[];
+
   if (id !== undefined) {
-    const updatedAddresses = existingAddresses.filter(
+    updatedAddresses = existingAddresses.filter(
       (address: any) => address.id.toString() !== id.toString()
     );
 
     localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
   } else {
     console.error("ID is undefined. Cannot remove address.");
+    updatedAddresses = existingAddresses;
   }
+
+  return updatedAddresses;
 };

@@ -5,9 +5,8 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AddressCreate } from "./pages/AddressCreate.tsx";
 import { NotFound } from "./pages/NotFound.tsx";
-import { AddressEdit } from "./pages/AddressEdit.tsx";
 import { Home } from "./pages/Home.tsx";
-import AddressTable from "./pages/AddressTable.tsx";
+import { AddressTable } from "./pages/AddressTable.tsx";
 
 const router = createBrowserRouter([
   {

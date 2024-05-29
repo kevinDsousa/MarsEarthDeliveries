@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import {
   Select,
   SelectTrigger,
@@ -16,6 +17,7 @@ import { saveAddressToLocalStorage } from "../utils/localStorageUtils";
 
 export const AddressForm = () => {
   const [planet, setPlanet] = useState("terra");
+  const navigate = useNavigate();
 
   const methods = useForm({
     resolver: zodResolver(planet === "terra" ? earthSchema : marsSchema),
@@ -30,7 +32,6 @@ export const AddressForm = () => {
             cep: "",
           }
         : {
-            coordenadas: "",
             lote: "",
           },
   });
@@ -39,6 +40,7 @@ export const AddressForm = () => {
     try {
       saveAddressToLocalStorage(data, planet);
       console.log("Data saved successfully");
+      navigate("/view-address");
     } catch (error) {
       console.error("Error saving data:", error);
     }
@@ -69,7 +71,6 @@ export const AddressForm = () => {
                       cep: "",
                     }
                   : {
-                      coordenadas: "",
                       lote: "",
                     }
               );

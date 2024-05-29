@@ -1,10 +1,6 @@
 import { z } from "zod";
 
 export const marsSchema = z.object({
-  coordenadas: z
-    .string()
-    .min(2, "Coordenadas devem ter no mínimo 2 caracteres")
-    .max(100, "Coordenadas devem ter no máximo 100 caracteres"),
   lote: z
     .string()
     .min(1, "Lote deve ter no mínimo 1 caractere")
