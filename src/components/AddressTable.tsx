@@ -6,7 +6,7 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "../components/ui/table";
+} from "./ui/table";
 import { removeAddressFromLocalStorage } from "../utils/localStorageUtils";
 import { Link } from "react-router-dom";
 
@@ -86,7 +86,7 @@ export const AddressTable = () => {
         </Table>
       ) : (
         <div className="text-slate-50 text-center mt-4">
-          <p className="text-zinc-900">
+          <p className="text-slate-50 text-lg">
             Nenhum endereço encontrado. Cadastre um novo endereço.
           </p>
         </div>
