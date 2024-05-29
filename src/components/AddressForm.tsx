@@ -1,131 +1,100 @@
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useForm, FormProvider } from "react-hook-form";
 import {
-  Form,
-  FormField,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-
-const formSchema = z.object({
-  rua: z.string().min(2).max(100),
-  numero: z.string().min(1).max(10),
-  cidade: z.string().min(2).max(50),
-  estado: z.string().min(2).max(50),
-  pais: z.string().min(2).max(50),
-  cep: z.string().min(8).max(8),
-});
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "./ui/select";
+import { marsSchema, earthSchema } from "../utils/formSchema";
+import { MarsForm } from "./MarsForm";
+import { EarthForm } from "./EarthForm";
+import { Button } from "./ui/button";
+import { saveAddressToLocalStorage } from "../utils/localStorageUtils";
 
 export const AddressForm = () => {
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      rua: "",
-      numero: "",
-      cidade: "",
-      estado: "",
-      pais: "",
-      cep: "",
-    },
+  const [planet, setPlanet] = useState("terra");
+
+  const methods = useForm({
+    resolver: zodResolver(planet === "terra" ? earthSchema : marsSchema),
+    defaultValues:
+      planet === "terra"
+        ? {
+            rua: "",
+            numero: "",
+            cidade: "",
+            estado: "",
+            pais: "",
+            cep: "",
+          }
+        : {
+            coordenadas: "",
+            lote: "",
+          },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = (data: any) => {
+    try {
+      saveAddressToLocalStorage(data);
+      console.log("Data saved successfully");
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="rua"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Rua</FormLabel>
-              <FormControl>
-                <Input placeholder="Nome da rua" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className="text-slate-50 flex flex-col items-center justify-end py-5"
+      >
+        <h1 className="text-2xl text-slate-50 font-bold">
+          Registre os dados de envio
+        </h1>
+        <div className="py-2">
+          <Select
+            value={planet}
+            onValueChange={(value) => {
+              setPlanet(value);
+              methods.reset(
+                value === "terra"
+                  ? {
+                      rua: "",
+                      numero: "",
+                      cidade: "",
+                      estado: "",
+                      pais: "",
+                      cep: "",
+                    }
+                  : {
+                      coordenadas: "",
+                      lote: "",
+                    }
+              );
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select planet" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="terra">Terra</SelectItem>
+              <SelectItem value="marte">Marte</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
-        <FormField
-          control={form.control}
-          name="numero"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Número</FormLabel>
-              <FormControl>
-                <Input placeholder="Número da residência" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {planet === "terra" ? <EarthForm /> : <MarsForm />}
 
-        <FormField
-          control={form.control}
-          name="cidade"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cidade</FormLabel>
-              <FormControl>
-                <Input placeholder="Nome da cidade" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="estado"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Estado</FormLabel>
-              <FormControl>
-                <Input placeholder="Nome do estado" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="pais"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>País</FormLabel>
-              <FormControl>
-                <Input placeholder="Nome do país" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="cep"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>CEP</FormLabel>
-              <FormControl>
-                <Input placeholder="CEP" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <button type="submit">Cadastrar Endereço</button>
+        <Button
+          variant={"outline"}
+          className="border-green-700 rounded-full hover:bg-green-700"
+          type="submit"
+        >
+          Salvar Endereço
+        </Button>
       </form>
-    </Form>
+    </FormProvider>
   );
 };
