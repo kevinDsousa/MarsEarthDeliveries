@@ -88,6 +88,9 @@ module.exports = {
         ".btn-outline-red": {
           "@apply border-red-700 text-red-700 hover:text-red-900": {},
         },
+        ".btn-outline-orange": {
+          "@apply border-orange-700 text-orange-700 hover:text-orange-900": {},
+        },
       });
     },
   ],

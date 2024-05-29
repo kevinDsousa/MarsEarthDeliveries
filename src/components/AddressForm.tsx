@@ -37,7 +37,7 @@ export const AddressForm = () => {
 
   const onSubmit = (data: any) => {
     try {
-      saveAddressToLocalStorage(data);
+      saveAddressToLocalStorage(data, planet);
       console.log("Data saved successfully");
     } catch (error) {
       console.error("Error saving data:", error);
@@ -50,10 +50,10 @@ export const AddressForm = () => {
         onSubmit={methods.handleSubmit(onSubmit)}
         className="text-slate-50 flex flex-col items-center justify-end py-5"
       >
-        <h1 className="text-2xl text-slate-50 font-bold">
-          Registre os dados de envio
-        </h1>
-        <div className="py-2">
+        <div>
+          <h1 className="text-2xl text-slate-50 font-bold">
+            Registre os dados de envio
+          </h1>
           <Select
             value={planet}
             onValueChange={(value) => {
@@ -75,11 +75,16 @@ export const AddressForm = () => {
               );
             }}
           >
-            <SelectTrigger>
+            <SelectTrigger className="btn-outline-orange w-1/2 bg-zinc-900 font-mono border-r-4">
               <SelectValue placeholder="Select planet" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="terra">Terra</SelectItem>
+            <SelectContent className="bg-zinc-900 text-slate-50">
+              <SelectItem
+                className="bg-zinc-900 btn-outline-orange"
+                value="terra"
+              >
+                Terra
+              </SelectItem>
               <SelectItem value="marte">Marte</SelectItem>
             </SelectContent>
           </Select>

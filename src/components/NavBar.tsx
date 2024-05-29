@@ -8,10 +8,10 @@ export const NavBar = () => {
           Inicio
         </Link>
         <Link className="btn-custom btn-outline-green" to="/new-address">
-          Cadastrar endereço
+          Cadastrar um novo endereço
         </Link>
-        <Link className="btn-custom btn-outline-yellow" to="/edit-address">
-          Editar endereço
+        <Link className="btn-custom btn-outline-yellow" to="/view-address">
+          Endereços
         </Link>
       </ul>
     </nav>
