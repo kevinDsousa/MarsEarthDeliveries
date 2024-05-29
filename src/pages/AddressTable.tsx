@@ -8,6 +8,7 @@ import {
   TableCell,
 } from "../components/ui/table";
 import { removeAddressFromLocalStorage } from "../utils/localStorageUtils";
+import { Link } from "react-router-dom";
 
 interface Address {
   id: string;
@@ -38,6 +39,7 @@ export const AddressTable = () => {
 
   return (
     <div className="p-4">
+      <h1 className="">Seus Endereços</h1>
       {addresses.length > 0 ? (
         <Table className="bg-zinc-600 text-slate-50">
           <TableHeader>
@@ -65,12 +67,12 @@ export const AddressTable = () => {
                 <TableCell>{address.cep || "-"}</TableCell>
                 <TableCell>{address.lote || "-"}</TableCell>
                 <TableCell className="flex gap-1">
-                  <button
+                  <Link
                     className="btn-custom btn-outline-yellow"
-                    onClick={() => console.log("Editar")}
+                    to={`/edit-address/${address.id}`}
                   >
                     Editar
-                  </button>
+                  </Link>
                   <button
                     className="btn-custom btn-outline-red"
                     onClick={() => handleRemoveAddress(address.id)}

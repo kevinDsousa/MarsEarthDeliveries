@@ -50,52 +50,50 @@ export const AddressForm = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className="text-slate-50 flex flex-col items-center justify-end py-5"
+        className="flex flex-col items-center justify-center text-slade-50"
       >
-        <div>
-          <h1 className="text-2xl text-slate-50 font-bold">
-            Registre os dados de envio
-          </h1>
-          <Select
-            value={planet}
-            onValueChange={(value) => {
-              setPlanet(value);
-              methods.reset(
-                value === "terra"
-                  ? {
-                      rua: "",
-                      numero: "",
-                      cidade: "",
-                      estado: "",
-                      pais: "",
-                      cep: "",
-                    }
-                  : {
-                      lote: "",
-                    }
-              );
-            }}
-          >
-            <SelectTrigger className="btn-outline-orange w-1/2 bg-zinc-900 font-mono border-r-4">
-              <SelectValue placeholder="Select planet" />
-            </SelectTrigger>
-            <SelectContent className="bg-zinc-900 text-slate-50">
-              <SelectItem
-                className="bg-zinc-900 btn-outline-orange"
-                value="terra"
-              >
-                Terra
-              </SelectItem>
-              <SelectItem value="marte">Marte</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <h1 className="text-2xl text-slate-50 font-bold">
+          Registre os dados de envio
+        </h1>
+        <Select
+          value={planet}
+          onValueChange={(value) => {
+            setPlanet(value);
+            methods.reset(
+              value === "terra"
+                ? {
+                    rua: "",
+                    numero: "",
+                    cidade: "",
+                    estado: "",
+                    pais: "",
+                    cep: "",
+                  }
+                : {
+                    lote: "",
+                  }
+            );
+          }}
+        >
+          <SelectTrigger className="btn-outline-orange w-1/2 bg-zinc-900 font-mono border-r-4">
+            <SelectValue placeholder="Select planet" />
+          </SelectTrigger>
+          <SelectContent className="bg-zinc-900 text-slate-50">
+            <SelectItem
+              className="bg-zinc-900 btn-outline-orange"
+              value="terra"
+            >
+              Terra
+            </SelectItem>
+            <SelectItem value="marte">Marte</SelectItem>
+          </SelectContent>
+        </Select>
 
         {planet === "terra" ? <EarthForm /> : <MarsForm />}
 
         <Button
           variant={"outline"}
-          className="border-green-700 rounded-full hover:bg-green-700"
+          className="text-slate-50 border-green-700 rounded-full hover:bg-green-700 mt-5"
           type="submit"
         >
           Salvar Endereço

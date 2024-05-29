@@ -6,7 +6,7 @@ export const MarsForm = () => {
   const { control } = useFormContext();
 
   return (
-    <div className="py-2">
+    <div className="flex flex-col gap-3 mt-3">
       <FormField
         control={control}
         name="lote"
