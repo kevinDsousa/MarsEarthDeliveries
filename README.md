@@ -1,30 +1,53 @@
-# React + TypeScript + Vite
+# MarsEarthDeliveries
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o repositório do projeto MarsEarthDeliveries, um aplicativo web desenvolvido com Vite, React e Tailwind CSS. Este projeto foi criado para fornecer uma interface intuitiva e responsiva para a entrega de pacotes entre Marte e a Terra.
 
-Currently, two official plugins are available:
+## Visualização
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Você pode visualizar o projeto em funcionamento através deste link: [MarsEarthDeliveries](https://kevindsousa.github.io/MarsEarthDeliveries/)
 
-## Expanding the ESLint configuration
+## Pré-requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Certifique-se de ter o Node.js instalado na sua máquina. Este projeto foi desenvolvido utilizando a versão 22.1.0 do Node.js.
 
-- Configure the top-level `parserOptions` property like this:
+## Instalação
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Para clonar e executar este projeto localmente, siga estas etapas:
+
+1. Clone o repositório para o seu ambiente local:
+
+   ```sh
+   git clone https://github.com/kevinDsousa/MarsEarthDeliveries.git
+   ```
+
+2. Navegue até o diretório do projeto:
+
+```sh
+cd MarsEarthDeliveries
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. cd MarsEarthDeliveries
+
+```sh
+npm install
+```
+
+## Execução do Projeto
+
+Para iniciar o servidor de desenvolvimento e visualizar o projeto em seu navegador, execute o seguinte comando:
+
+```sh
+npm run dev
+```
+
+## Tecnologias Utilizadas
+
+- Vite: Um build tool extremamente rápido e moderno para desenvolvimento web.
+
+- React: Uma biblioteca JavaScript para criar interfaces de usuário.
+
+- Tailwind CSS: Um framework CSS utilitário para estilização rápida e eficiente.
+
+- Node.js: Utilizado na versão 22.1.0 para gerenciar dependências e executar scripts de desenvolvimento.
+
+- ShadnUI: Utilizado para alguns componentes de interface do usuário.
