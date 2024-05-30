@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,11 +7,24 @@ import { MarsForm } from "./MarsForm";
 import { EarthForm } from "./EarthForm";
 import { Button } from "./ui/button";
 import { updateAddressToLocalStorage } from "../utils/localStorageUtils";
+import { Address } from "../types/Address";
+import { AddressData } from "../types/AddressData";
 
 export const EditForm = () => {
   const [planet, setPlanet] = useState("terra");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const getAddressById = (id: string) => {
+    const storedAddresses = localStorage.getItem("addresses");
+    if (storedAddresses) {
+      const addresses = JSON.parse(storedAddresses);
+      return addresses.find((address: Address) => address.id === id);
+    }
+    return null;
+  };
+
   const methods = useForm({
     resolver: zodResolver(planet === "terra" ? earthSchema : marsSchema),
     defaultValues:
@@ -29,25 +42,39 @@ export const EditForm = () => {
           },
   });
 
-  const onSubmit = (data: any) => {
+  useEffect(() => {
+    if (id) {
+      const address = getAddressById(id);
+      if (address) {
+        setPlanet(address.planet || "terra");
+        methods.reset(address);
+      }
+    }
+    setLoading(false);
+  }, [id, methods]);
+
+  const onSubmit = (data: AddressData) => {
     try {
       if (id) {
         updateAddressToLocalStorage(data, planet, id);
-        console.log("Data edited successfully");
         navigate("/view-address");
       } else {
-        console.error("ID is undefined. Cannot update address.");
+        console.error(
+          "ID não encontrado. Não é possível atualizar o endereço."
+        );
       }
     } catch (error) {
-      console.error("Error saving data:", error);
+      console.error("Erro ao salvar os dados:", error);
     }
   };
+
+  if (loading) return <p>Carregando...</p>;
 
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-center text-slade-50"
+        className="flex flex-col items-center justify-center text-slate-50"
       >
         <h1 className="text-2xl text-slate-50 font-bold">
           Atualize seu cadastro

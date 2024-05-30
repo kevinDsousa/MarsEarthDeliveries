@@ -1,42 +1,58 @@
 import { v4 as uuidv4 } from "uuid";
+import { Address } from "../types/Address";
+import { AddressData } from "../types/AddressData";
 
-export const saveAddressToLocalStorage = (data: any, planet: string) => {
+export const saveAddressToLocalStorage = (
+  data: AddressData,
+  planet: string
+) => {
   const id = uuidv4();
 
-  const existingAddresses = JSON.parse(
+  const existingAddresses: Address[] = JSON.parse(
     localStorage.getItem("addresses") || "[]"
   );
 
-  const addressWithId = { id, ...data, planet };
+  const addressWithId: Address = { id, ...data, planet };
 
   const updatedAddresses = [...existingAddresses, addressWithId];
 
   localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
 };
 
-export const removeAddressFromLocalStorage = (id: string) => {
-  const existingAddresses = JSON.parse(
+export const removeAddressFromLocalStorage = (id: string): Address[] => {
+  const existingAddresses: Address[] = JSON.parse(
     localStorage.getItem("addresses") || "[]"
   );
 
-  let updatedAddresses: any[];
+  const updatedAddresses = existingAddresses.filter(
+    (address: Address) => address.id !== id
+  );
 
-  if (id !== undefined) {
-    updatedAddresses = existingAddresses.filter(
-      (address: any) => address.id.toString() !== id.toString()
-    );
-
-    localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
-  } else {
-    console.error("ID is undefined. Cannot remove address.");
-    updatedAddresses = existingAddresses;
-  }
-
+  localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
   return updatedAddresses;
 };
 
 export const updateAddressToLocalStorage = (
-  data: any,
+  updatedData: AddressData,
   planet: string,
   id: string
-) => {};
+) => {
+  const existingAddresses: Address[] = JSON.parse(
+    localStorage.getItem("addresses") || "[]"
+  );
+
+  const addressIndex = existingAddresses.findIndex(
+    (address: Address) => address.id === id
+  );
+
+  if (addressIndex !== -1) {
+    existingAddresses[addressIndex] = {
+      ...existingAddresses[addressIndex],
+      ...updatedData,
+      planet,
+    };
+    localStorage.setItem("addresses", JSON.stringify(existingAddresses));
+  } else {
+    console.error("Endereço não encontrado. Não é possível atualizar.");
+  }
+};

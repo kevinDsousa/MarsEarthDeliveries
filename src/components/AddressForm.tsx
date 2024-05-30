@@ -14,6 +14,7 @@ import { MarsForm } from "./MarsForm";
 import { EarthForm } from "./EarthForm";
 import { Button } from "./ui/button";
 import { saveAddressToLocalStorage } from "../utils/localStorageUtils";
+import { AddressData } from "../types/AddressData";
 
 export const AddressForm = () => {
   const [planet, setPlanet] = useState("terra");
@@ -36,13 +37,12 @@ export const AddressForm = () => {
           },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: AddressData) => {
     try {
       saveAddressToLocalStorage(data, planet);
-      console.log("Data saved successfully");
       navigate("/view-address");
     } catch (error) {
-      console.error("Error saving data:", error);
+      console.error("Erro ao salvar os dados", error);
     }
   };
 
